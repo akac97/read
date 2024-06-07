@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Text-to-Speech Example</title>
+</head>
+<body>
+
+<textarea id="text-input" rows="10" cols="50" placeholder="Paste your Russian text here"></textarea>
+<br>
+<button onclick="speak()">Read</button>
+
+<script>
+function speak() {
+    var msg = new SpeechSynthesisUtterance();
+    var voices = window.speechSynthesis.getVoices();
+    msg.voice = voices.find(voice => voice.lang === 'ru-RU'); // Select Russian voice
+    msg.text = document.getElementById('text-input').value;
+
+    if (msg.text.length > 0) {
+        speechSynthesis.speak(msg);
+    }
+}
+
+// This is necessary to ensure the voices are loaded
+window.speechSynthesis.onvoiceschanged = function() {
+    var voices = window.speechSynthesis.getVoices();
+    console.log(voices); // You can check available voices in the console
+};
+</script>
+
+</body>
+</html>
